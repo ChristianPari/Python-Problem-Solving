@@ -16,7 +16,7 @@ def gen_random_num():
 
   # generate some integers
   for _ in range(4):
-    value.append("{}".format(randint(0, 9)))
+    value.append("{}".format(randint(0, 5)))
 
   code = "".join(value)
 
@@ -26,17 +26,16 @@ def gen_random_num():
 def start():
   # winning code genereated
   win_code = gen_random_num()
-  print(win_code)
   # code passed to the questions to check later aganist user input
   question1(win_code)
 
 # first question, takes and passes the winning code to following functions
 def question1(code):
   print("\nWelcome to Mastermind!\nPlease enter your guess, 4 numbers between 0 and 9, ex: 1234")
-  user_guess = guessing(input("Guess: "), code)
+  user_guess = guessing(input("Guess: "), code, [])
 
 # function to compare the user's input aganist the winning code
-def guessing(guess, winning_code):
+def guessing(guess, winning_code, guesses):
   def convert_to_list(string):
       numbers = []
       numbers[:0] = string
@@ -47,6 +46,7 @@ def guessing(guess, winning_code):
   user_guess_list = convert_to_list(guess)
 
   response = {"black": 0, "white": 0}
+  guess_list = guesses
 
   # creating a response based on what the user has guessed, how many are correct or in wrong places
   for idx, val in enumerate(winning_code_list):
@@ -62,9 +62,26 @@ def guessing(guess, winning_code):
       start()
     else:
       print("\nGood Game!")
-  else:  
-    print("\n{} blacks and {} whites".format(response["black"], response["white"]))
-    guessing(input("\nGuess: "), winning_code)
+  else:
+    if (guess_list.__len__() == 9):
+      play_again = input("\nGame Over. Play again?\nY/N: ").lower()
+      if (play_again.startswith("y")):
+        start()
+      else:
+        print("Better luck next time!")
+    else: 
+      guess_list.append(guess)
+
+      print("\n{} correct an in the right spot, {} correct but in wrong spot".format(response["black"], response["white"]))
+
+      guesses_string = ", ".join(guess_list)
+
+      print("\nYour guesses: {}".format(guesses_string))
+      
+      if (guess_list.__len__() == 8):
+        print("\nLast try!!")
+
+      guessing(input("\nGuess: "), winning_code, guess_list)
 
 # start the program
 start()
