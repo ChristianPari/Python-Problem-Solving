@@ -11,6 +11,7 @@ advanced_sort(["b", "a", "b", "a", "c"])➞ [["b", "b"], ["a", "a"], ["c"]]
 """
 
 def advanced_sort(data):
+  # remove duplicates from a 1D list
   elm_dict = list(dict.fromkeys(data))
   print(elm_dict)
 
