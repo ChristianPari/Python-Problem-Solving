@@ -1,2 +1,2 @@
 # Python Algorithms
-This repo contains algorithms of varying complexity that I completed using Python
+##### [Back to Algorithms Directory](https://github.com/ChristianPari/Algorithms-Directory)
